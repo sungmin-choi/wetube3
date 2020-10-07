@@ -5,10 +5,11 @@ import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
-
+import "./passport";
 const app = express();
 
 app.set("view engine", "pug");
@@ -18,6 +19,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
