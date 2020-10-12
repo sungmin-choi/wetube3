@@ -14,10 +14,15 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import "./passport";
+import { contentSecurityPolicy } from "helmet";
 const app = express();
 dotenv.config()
 const CokieStore = MongoStore(session);
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("static"));
